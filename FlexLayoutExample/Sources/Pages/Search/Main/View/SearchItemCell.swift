@@ -19,16 +19,10 @@ final class SearchItemCell: BaseTableViewCell {
     }
     
     // MARK: - UI
-    var containerView: UIView = UIView()
     let searchImageView: UIImageView = UIImageView().then {
         $0.cornerRadius = 8
     }
-    //    private lazy var infoStackView: UIStackView = UIStackView().then {
-    //        $0.axis = .vertical
-    //        $0.addArrangedSubview(self.searchTitleLabel)
-    //        $0.addArrangedSubview(self.searchDescLabel)
-    //        $0.addArrangedSubview(self.ratingContainerView)
-    //    }
+
     let searchTitleLabel: UILabel = UILabel().then {
         $0.font = UIFont.systemFont(ofSize: 16)
     }

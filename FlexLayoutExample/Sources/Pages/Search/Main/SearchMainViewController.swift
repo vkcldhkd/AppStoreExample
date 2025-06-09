@@ -89,12 +89,7 @@ final class SearchMainViewController: BaseViewController {
 private extension SearchMainViewController {
     // MARK: - setupUI
     func setupUI() {
-        defer { self.loadingViewAddSubView() }
-        self.view.addSubview(self.searchBar)
-        self.view.addSubview(self.tableView)
-        
-        tableView.rowHeight = UITableView.automaticDimension
-        tableView.estimatedRowHeight = 100
+        self.loadingViewAddSubView()
     }
     
     func setupNavigationBar() {
