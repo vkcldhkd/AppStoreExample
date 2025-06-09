@@ -99,13 +99,6 @@ final class SearchItemCell: BaseTableViewCell {
 private extension SearchItemCell {
     // MARK: - setupUI
     func setupUI() {
-        //        self.containerView.addSubview(self.searchImageView)
-        //        self.containerView.addSubview(self.searchTitleLabel)
-        //        self.containerView.addSubview(self.searchDescLabel)
-        //        self.containerView.addSubview(self.ratingLabel)
-        //        self.containerView.addSubview(self.downloadButton)
-        //        self.containerView.addSubview(self.collectionView)
-        //        self.contentView.addSubview(self.containerView)
     }
     
     // MARK: - setupConstraints
@@ -139,9 +132,8 @@ private extension SearchItemCell {
                     }
                 
                 flex.addItem(self.collectionView)
-                    .marginTop(12)
+                    .marginHorizontal(12)
                     .height(UIScreen.main.bounds.width * 0.7)
-                    .width(100%)
             }
     }
 }
