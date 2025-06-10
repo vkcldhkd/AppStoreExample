@@ -7,6 +7,7 @@
 
 import UIKit
 import ReactorKit
+import FlexLayout
 
 final class SearchHistoryCell: BaseTableViewCell {
     // MARK: - Constants
@@ -33,25 +34,49 @@ final class SearchHistoryCell: BaseTableViewCell {
         self.setupUI()
         self.setupConstraints()
     }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.layout()
+    }
+    
+    fileprivate func layout() {
+        self.contentView.flex.layout(mode: .adjustHeight)
+    }
+    
+    override func sizeThatFits(_ size: CGSize) -> CGSize {
+        contentView.pin.width(size.width)
+        self.layout()
+        return contentView.frame.size
+    }
 }
 
 private extension SearchHistoryCell {
     // MARK: - setupUI
     func setupUI() {
-        self.contentView.addSubview(self.containerStackView)
+//        self.contentView.addSubview(self.containerStackView)
         
     }
     
     // MARK: - setupConstraints
     func setupConstraints() {
-//        self.containerStackView.snp.makeConstraints { make in
-//            make.top.bottom.equalToSuperview().inset(12)
-//            make.leading.trailing.equalToSuperview().inset(20)
-//        }
-//        
-//        self.searchImageView.snp.makeConstraints { make in
-//            make.size.equalTo(15)
-//        }
+        self.contentView.flex
+            .direction(.column)
+            .define { flex in
+                flex.addItem()
+                    .direction(.row)
+                    .alignItems(.center)
+                    .paddingHorizontal(12)
+                    .paddingVertical(12)
+                    .define { row in
+                        row.addItem(searchImageView)
+                            .size(15)
+                            .marginRight(12)
+                        
+                        row.addItem(searchTitleLabel)
+                            .grow(1)
+                    }
+            }
     }
 }
 
@@ -81,7 +106,7 @@ extension SearchHistoryCell: ReactorKit.View {
         
         isContainsObservable
             .map { !$0 }
-            .bind(to: self.searchImageView.rx.isHidden)
+            .bind(to: self.searchImageView.rx.isDisplay)
             .disposed(by: self.disposeBag)
     }
 }

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import FlexLayout
 
 extension UIView {
     @IBInspectable
@@ -16,6 +17,17 @@ extension UIView {
         set {
             layer.cornerRadius = newValue
             layer.masksToBounds = newValue > 0
+        }
+    }
+    
+    var isDisplay: Bool {
+        get {
+            return self.isHidden
+        }
+        set {
+            self.isHidden = newValue
+            self.flex.display(newValue ? .none : .flex)
+            self.setNeedsLayout()
         }
     }
 }
