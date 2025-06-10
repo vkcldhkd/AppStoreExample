@@ -31,10 +31,7 @@ final class SearchItemCell: BaseTableViewCell {
         $0.font = UIFont.systemFont(ofSize: 14)
         $0.textColor = .darkGray
     }
-//    lazy var ratingContainerView: UIView = UIView().then {
-//        //        $0.addSubview(self.ratingView)
-//        $0.addSubview(self.ratingLabel)
-//    }
+
     let ratingView: CosmosView = CosmosView().then {
         $0.isUserInteractionEnabled = false
         $0.settings.starSize = 15
