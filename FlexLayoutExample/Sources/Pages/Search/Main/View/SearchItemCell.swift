@@ -10,6 +10,7 @@ import ReactorKit
 import RxKingfisher
 import ReusableKit
 import FlexLayout
+import Cosmos
 
 final class SearchItemCell: BaseTableViewCell {
     // MARK: - Constants
@@ -30,20 +31,20 @@ final class SearchItemCell: BaseTableViewCell {
         $0.font = UIFont.systemFont(ofSize: 14)
         $0.textColor = .darkGray
     }
-    lazy var ratingContainerView: UIView = UIView().then {
-        //        $0.addSubview(self.ratingView)
-        $0.addSubview(self.ratingLabel)
+//    lazy var ratingContainerView: UIView = UIView().then {
+//        //        $0.addSubview(self.ratingView)
+//        $0.addSubview(self.ratingLabel)
+//    }
+    let ratingView: CosmosView = CosmosView().then {
+        $0.isUserInteractionEnabled = false
+        $0.settings.starSize = 15
+        $0.settings.starMargin = 2
+        $0.settings.fillMode = .half
+        $0.settings.filledColor = UIColor.lightGray
+        $0.settings.emptyBorderColor = UIColor.lightGray
+        $0.settings.filledBorderColor = UIColor.lightGray
+        $0.setContentHuggingPriority(.required, for: .horizontal)
     }
-    //    let ratingView: CosmosView = CosmosView().then {
-    //        $0.isUserInteractionEnabled = false
-    //        $0.settings.starSize = 15
-    //        $0.settings.starMargin = 2
-    //        $0.settings.fillMode = .half
-    //        $0.settings.filledColor = UIColor.lightGray
-    //        $0.settings.emptyBorderColor = UIColor.lightGray
-    //        $0.settings.filledBorderColor = UIColor.lightGray
-    //        $0.setContentHuggingPriority(.required, for: .horizontal)
-    //    }
     
     let ratingLabel: UILabel = UILabel().then {
         $0.textColor = UIColor.lightGray
@@ -84,13 +85,8 @@ final class SearchItemCell: BaseTableViewCell {
     }
     
     override func sizeThatFits(_ size: CGSize) -> CGSize {
-        // 1) Set the contentView's width to the specified size parameter
         contentView.pin.width(size.width)
-        
-        // 2) Layout contentView flex container
-        layout()
-        
-        // Return the flex container new size
+        self.layout()
         return contentView.frame.size
     }
 }
@@ -111,7 +107,7 @@ private extension SearchItemCell {
                     .direction(.row)
                     .alignItems(.center)
                     .paddingHorizontal(12)
-                    .paddingVertical(12) // ✅ 핵심 변경 사항
+                    .paddingVertical(12)
                     .define { row in
                         row.addItem(searchImageView)
                             .size(60)
@@ -120,7 +116,14 @@ private extension SearchItemCell {
                         row.addItem().direction(.column).shrink(1).define { column in
                             column.addItem(searchTitleLabel).height(20)
                             column.addItem(searchDescLabel).height(18)
-                            column.addItem(ratingLabel).height(18)
+                            
+                            column.addItem().direction(.row)
+                                .shrink(1)
+                                .define { row in
+                                    row.addItem(ratingView).marginRight(4)
+                                    row.addItem(ratingLabel).alignItems(.center)
+                                }
+                            
                         }
                         
                         row.addItem(spacer).grow(1)

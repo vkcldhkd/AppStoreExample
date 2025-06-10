@@ -19,6 +19,7 @@
 		A89D3FF62DF7242500FEA60B /* LookinServer in Frameworks */ = {isa = PBXBuildFile; productRef = A89D3FF52DF7242500FEA60B /* LookinServer */; };
 		A89D3FF92DF7275800FEA60B /* PinLayout in Frameworks */ = {isa = PBXBuildFile; productRef = A89D3FF82DF7275800FEA60B /* PinLayout */; };
 		A89D3FFF2DF72B6D00FEA60B /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = A89D3FFE2DF72B6D00FEA60B /* Alamofire */; };
+		A89D40052DF8664F00FEA60B /* Cosmos in Frameworks */ = {isa = PBXBuildFile; productRef = A89D40042DF8664F00FEA60B /* Cosmos */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -80,6 +81,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A89D40052DF8664F00FEA60B /* Cosmos in Frameworks */,
 				A89D3FCF2DF71FE700FEA60B /* RxKingfisher in Frameworks */,
 				A89D3FF92DF7275800FEA60B /* PinLayout in Frameworks */,
 				A89D3F552DF54E5F00FEA60B /* RIBs in Frameworks */,
@@ -164,6 +166,7 @@
 				A89D3FF52DF7242500FEA60B /* LookinServer */,
 				A89D3FF82DF7275800FEA60B /* PinLayout */,
 				A89D3FFE2DF72B6D00FEA60B /* Alamofire */,
+				A89D40042DF8664F00FEA60B /* Cosmos */,
 			);
 			productName = FlexLayoutExample;
 			productReference = A89D3ED82DF52C6700FEA60B /* FlexLayoutExample.app */;
@@ -259,6 +262,7 @@
 				A89D3FF42DF7242500FEA60B /* XCRemoteSwiftPackageReference "LookinServer" */,
 				A89D3FF72DF7275800FEA60B /* XCRemoteSwiftPackageReference "PinLayout" */,
 				A89D3FFD2DF72B6D00FEA60B /* XCRemoteSwiftPackageReference "Alamofire" */,
+				A89D40032DF8664F00FEA60B /* XCRemoteSwiftPackageReference "Cosmos" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = A89D3ED92DF52C6700FEA60B /* Products */;
@@ -715,6 +719,14 @@
 				minimumVersion = 5.10.2;
 			};
 		};
+		A89D40032DF8664F00FEA60B /* XCRemoteSwiftPackageReference "Cosmos" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/evgenyneu/Cosmos.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 25.0.1;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -777,6 +789,11 @@
 			isa = XCSwiftPackageProductDependency;
 			package = A89D3FFD2DF72B6D00FEA60B /* XCRemoteSwiftPackageReference "Alamofire" */;
 			productName = Alamofire;
+		};
+		A89D40042DF8664F00FEA60B /* Cosmos */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = A89D40032DF8664F00FEA60B /* XCRemoteSwiftPackageReference "Cosmos" */;
+			productName = Cosmos;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
