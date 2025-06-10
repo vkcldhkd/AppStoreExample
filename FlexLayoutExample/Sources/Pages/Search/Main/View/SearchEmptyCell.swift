@@ -9,11 +9,6 @@ import UIKit
 import FlexLayout
 
 final class SearchEmptyCell: BaseTableViewCell {
-
-    private lazy var containerView: UIView = UIView().then {
-        $0.addSubview(self.descLabel)
-        $0.addSubview(self.keywordLabel)
-    }
     let descLabel: UILabel = UILabel().then {
         $0.font = UIFont.boldSystemFont(ofSize: 25)
         $0.text = "결과 없음"
@@ -37,8 +32,17 @@ final class SearchEmptyCell: BaseTableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-
-
+        self.layout()
+    }
+    
+    fileprivate func layout() {
+        self.contentView.flex.layout(mode: .adjustHeight)
+    }
+    
+    override func sizeThatFits(_ size: CGSize) -> CGSize {
+        contentView.pin.width(size.width)
+        self.layout()
+        return contentView.frame.size
     }
 }
 
@@ -51,17 +55,11 @@ extension SearchEmptyCell {
 //MARK: - UI
 private extension SearchEmptyCell {
     func setupUI() {
-        self.contentView.addSubview(self.containerView)
     }
     
     func setupConstraints() {
-        // containerView의 위치 지정
-        self.containerView.pin.all(self.contentView.pin.safeArea).margin(20)
-
-        // FlexLayout 적용
-        self.containerView.flex.layout()
         
-        containerView.flex.direction(.column).define { flex in
+        self.contentView.flex.direction(.column).define { flex in
             flex.addItem(descLabel)
                 .height(29)
                 .marginBottom(8)

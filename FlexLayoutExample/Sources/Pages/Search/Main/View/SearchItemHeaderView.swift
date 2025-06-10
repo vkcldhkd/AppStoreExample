@@ -6,8 +6,11 @@
 //
 
 import UIKit
+import FlexLayout
 
 final class SearchItemHeaderView: BaseView {
+    let rootFlexContainer = UIView()
+    
     // MARK: - UI
     private let headerTitleLabel: UILabel = UILabel().then {
         $0.font = UIFont.boldSystemFont(ofSize: 20)
@@ -23,6 +26,14 @@ final class SearchItemHeaderView: BaseView {
     required init?(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.layout()
+    }
+    
+    fileprivate func layout() {
+        self.headerTitleLabel.pin.all().margin(12)
+    }
 }
 
 extension SearchItemHeaderView {
@@ -35,8 +46,6 @@ extension SearchItemHeaderView {
     
     // MARK: - setupConstraints
     func setupConstraints() {
-//        self.headerTitleLabel.snp.makeConstraints { make in
-//            make.edges.equalToSuperview().inset(20)
-//        }
+        self.layout()
     }
 }
