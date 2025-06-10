@@ -136,6 +136,7 @@ private extension SearchItemCell {
                 
                 flex.addItem(self.collectionView)
                     .marginHorizontal(12)
+                    .marginBottom(12)
                     .height(UIScreen.main.bounds.width * 0.7)
             }
     }
