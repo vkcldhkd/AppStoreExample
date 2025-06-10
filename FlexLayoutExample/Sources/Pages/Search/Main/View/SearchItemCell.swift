@@ -118,7 +118,9 @@ private extension SearchItemCell {
                                 .shrink(1)
                                 .define { row in
                                     row.addItem(ratingView).marginRight(4)
-                                    row.addItem(ratingLabel).alignItems(.center)
+                                    row.addItem(ratingLabel)
+                                        .grow(1)
+                                        .alignItems(.center)
                                 }
                             
                         }

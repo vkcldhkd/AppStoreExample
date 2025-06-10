@@ -13,37 +13,38 @@ extension SearchMainViewController {
     // MARK: - BindTableView
     func bindTableView(reactor: Reactor) {
         // MARK: - Delegate
-        self.tableView.rx.setDelegate(self)
+        self.adapter.tableView.rx.setDelegate(self)
             .disposed(by: self.disposeBag)
         
         // MARK: - Action
-//        self.tableView.rx.itemSelected(dataSource: self.dataSource)
-//            .throttle(.milliseconds(600), scheduler: MainScheduler.asyncInstance)
-//            .observe(on: MainScheduler.asyncInstance)
-//            .subscribe(onNext: { [weak self] item in
-//                self?.endEditing()
-//                
-//                switch item {
-//                case let .searchItem(cellReactor):
+        self.adapter.tableView.rx.itemSelected(dataSource: self.adapter.dataSource)
+            .throttle(.milliseconds(600), scheduler: MainScheduler.asyncInstance)
+            .observe(on: MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] item in
+                self?.endEditing()
+                
+                switch item {
+                case let .searchItem(cellReactor):
 //                    URLNavigatorHelper.shared.go(
 //                        name: Pages.Search.detail,
 //                        type: .push,
 //                        context: [.model: cellReactor.currentState.model]
 //                    )
-//                case let .historyItem(cellReactor):
-//                    guard !cellReactor.currentState.isEmpty else { return }
-//                    self?.reactor?.action.onNext(.search(keyword: cellReactor.currentState.model))
-//                    
-//                default: 
-//                    return
-//                }
-//            })
-//            .disposed(by: self.disposeBag)
+                    print("cellReactor: \(cellReactor.currentState.model)")
+                case let .historyItem(cellReactor):
+                    guard !cellReactor.currentState.isEmpty else { return }
+                    self?.reactor?.action.onNext(.search(keyword: cellReactor.currentState.model))
+                    
+                default: 
+                    return
+                }
+            })
+            .disposed(by: self.disposeBag)
             
         
         // MARK: - State
         reactor.state.map { $0.section }
-            .bind(to: self.tableView.rx.items(dataSource: self.dataSource))
+            .bind(to: self.adapter.tableView.rx.items(dataSource: self.adapter.dataSource))
             .disposed(by: self.disposeBag)
     }
 }

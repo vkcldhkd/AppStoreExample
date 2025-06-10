@@ -114,13 +114,6 @@ extension BaseViewController {
     }
     
     func loadingViewConstraints(inset: CGFloat = 0) {
-//        self.loadingView.snp.makeConstraints { make in
-//            make.centerX.equalToSuperview()
-//            if inset > 0 {
-//                make.centerY.equalTo(UIScreen.main.bounds.midY - inset)
-//            } else {
-//                make.centerY.equalTo(UIScreen.main.bounds.midY)
-//            }
-//        }
+        self.loadingView.pin.center()
     }
 }
