@@ -4,13 +4,13 @@
 //
 //  Created by HYUN SUNG on 6/8/25.
 //
-
+import RIBs
 import UIKit
 
 class SceneDelegate: UIResponder, UIWindowSceneDelegate {
 
     var window: UIWindow?
-
+    private var launchRouter: LaunchRouting?
 
     func scene(
         _ scene: UIScene,
@@ -19,10 +19,17 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     ) {
         guard let windowScene = (scene as? UIWindowScene) else { return }
         let window = UIWindow(windowScene: windowScene)
-        let rootViewController = SearchMainViewController()
-        window.rootViewController = rootViewController
+
+        let launchRouter = RootBuilder(dependency: AppComponent()).build()
+        self.launchRouter = launchRouter
+        launchRouter.launch(from: window)
+        
         self.window = window
-        window.makeKeyAndVisible()
+        
+//        let rootViewController = SearchMainViewController()
+//        window.rootViewController = rootViewController
+//        self.window = window
+//        window.makeKeyAndVisible()
     }
 
     func sceneDidDisconnect(_ scene: UIScene) {

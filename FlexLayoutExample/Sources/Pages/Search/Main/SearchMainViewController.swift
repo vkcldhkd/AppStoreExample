@@ -12,6 +12,11 @@ import ReusableKit
 import FlexLayout
 import PinLayout
 
+
+protocol SearchMainPresentableListener: AnyObject {
+    
+}
+
 final class SearchMainViewController: BaseViewController {
     // MARK: - Constants
     typealias Reactor = SearchMainViewReactor
@@ -22,6 +27,7 @@ final class SearchMainViewController: BaseViewController {
     }
     
     // MARK: - Properties
+    weak var listener: SearchMainPresentableListener?
     let adapter: SearchMainViewAdapter = SearchMainViewAdapter()
     
     // MARK: - Initializing
@@ -71,4 +77,8 @@ extension SearchMainViewController: ReactorKit.View {
         self.bindTableView(reactor: reactor)
         self.bindLoading(reactor: reactor)
     }
+}
+
+extension SearchMainViewController: SearchMainPresentable, SearchMainViewControllable {
+    
 }

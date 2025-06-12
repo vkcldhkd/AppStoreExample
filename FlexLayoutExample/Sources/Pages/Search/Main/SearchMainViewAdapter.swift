@@ -8,8 +8,9 @@
 import UIKit
 import ReusableKit
 import RxDataSources
+import RxSwift
 
-struct SearchMainViewAdapter {
+final class SearchMainViewAdapter {
     // MARK: - Constants
     struct Reusable {
         static let listCell = ReusableCell<SearchItemCell>()
@@ -25,7 +26,11 @@ struct SearchMainViewAdapter {
         $0.keyboardDismissMode = .onDrag
     }
     
+    // MARK: - Rx
+    private let disposeBag = DisposeBag()
+    
     // MARK: - Properties
+    var onItemSelected: ((SearchMainSectionItem) -> Void)?
     let dataSource: RxTableViewSectionedReloadDataSource<SearchMainSection>
     private static func dataSourceFactory() -> RxTableViewSectionedReloadDataSource<SearchMainSection> {
         return .init(
@@ -51,5 +56,15 @@ struct SearchMainViewAdapter {
     // MARK: - Initializing
     init() {
         self.dataSource = type(of: self).dataSourceFactory()
+    }
+}
+
+extension SearchMainViewAdapter {
+    func bindActions() {
+        tableView.rx.itemSelected(dataSource: dataSource)
+            .throttle(.milliseconds(600), scheduler: MainScheduler.asyncInstance)
+            .observe(on: MainScheduler.asyncInstance)
+            .subscribe(onNext: { [weak self] in self?.onItemSelected?($0) })
+            .disposed(by: self.disposeBag)
     }
 }
