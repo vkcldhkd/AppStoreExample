@@ -71,19 +71,21 @@ private extension SearchDeatilDescCell {
     func setupConstraints() {
         
         self.contentView.flex.padding(20).define { flex in
-            flex.addItem(descLabel)
-                .marginBottom(8)
+            flex.addItem().position(.relative).define { layer in
+                layer.addItem(descLabel)
+                
+                layer.addItem(moreWrapperView)
+                    .position(.absolute)
+                    .right(0)
+                    .bottom(0)
+                    .define { wrapper in
+                        wrapper.addItem(moreBackgroundGradientView)
+                            .position(.absolute)
+                            .left(-8).right(0).top(0).bottom(0)
 
-            flex.addItem(moreWrapperView)
-                .alignSelf(.end)
-                .position(.relative)
-                .define { wrapper in
-                    wrapper.addItem(moreBackgroundGradientView)
-                        .position(.absolute)
-                        .left(-8).right(0).top(0).bottom(0)
-
-                    wrapper.addItem(moreLabel)
-                }
+                        wrapper.addItem(moreLabel)
+                    }
+            }
         }
         
 //        self.descLabel.snp.makeConstraints { make in
@@ -119,16 +121,13 @@ extension SearchDeatilDescCell: ReactorKit.View {
             .distinctUntilChanged()
         
         numberOfLinesObservable
-            .bind(to: self.descLabel.rx.numberOfLines)
+            .bind(to: self.descLabel.rx.flexNumberOfLines)
             .disposed(by: self.disposeBag)
         
         numberOfLinesObservable
             .map { $0 == 0 }
             .distinctUntilChanged()
-            .bind(to:
-                    self.moreLabel.rx.isHidden,
-                    self.moreBackgroundGradientView.rx.isHidden
-            )
+            .bind(to: self.moreWrapperView.rx.isDisplay)
             .disposed(by: self.disposeBag)
     }
 }

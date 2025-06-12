@@ -75,7 +75,7 @@ private extension SearchDetailScreenshotCell {
             flex.addItem(collectionView)
                 .marginHorizontal(20)
                 .marginVertical(12)
-                .height(UIScreen.main.bounds.width * 1.2)
+                .height(UIScreen.main.bounds.width)
         }
     }
 }
