@@ -6,6 +6,7 @@
 //
 import UIKit
 import ReactorKit
+import FlexLayout
 
 final class SearchDetailInfoCell: BaseTableViewCell {
     // MARK: - Constants
@@ -15,11 +16,11 @@ final class SearchDetailInfoCell: BaseTableViewCell {
     let searchImageView: UIImageView = UIImageView().then {
         $0.cornerRadius = 8
     }
-    private lazy var infoStackView: UIStackView = UIStackView().then {
-        $0.axis = .vertical
-        $0.addArrangedSubview(self.searchTitleLabel)
-        $0.addArrangedSubview(self.searchDescLabel)
-    }
+//    private lazy var infoStackView: UIStackView = UIStackView().then {
+//        $0.axis = .vertical
+//        $0.addArrangedSubview(self.searchTitleLabel)
+//        $0.addArrangedSubview(self.searchDescLabel)
+//    }
     
     let searchTitleLabel: UILabel = UILabel().then {
         $0.font = UIFont.systemFont(ofSize: 20)
@@ -44,19 +45,47 @@ final class SearchDetailInfoCell: BaseTableViewCell {
         self.setupUI()
         self.setupConstraints()
     }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.layout()
+    }
+    
+    fileprivate func layout() {
+        self.contentView.flex.layout(mode: .adjustHeight)
+    }
+    
+    override func sizeThatFits(_ size: CGSize) -> CGSize {
+        contentView.pin.width(size.width)
+        self.layout()
+        return contentView.frame.size
+    }
+    
 }
 
 
 private extension SearchDetailInfoCell {
     // MARK: - setupUI
     func setupUI() {
-        self.contentView.addSubview(self.searchImageView)
-        self.contentView.addSubview(self.infoStackView)
-        self.contentView.addSubview(self.downloadButton)
+//        self.contentView.addSubview(self.searchImageView)
+//        self.contentView.addSubview(self.infoStackView)
+//        self.contentView.addSubview(self.downloadButton)
     }
     
     // MARK: - setupConstraints
     func setupConstraints() {
+        self.contentView.flex.padding(20).define { flex in
+            flex.addItem().direction(.row).alignItems(.start).define { row in
+                row.addItem(self.searchImageView).size(100)
+
+                row.addItem().direction(.column).marginLeft(8).grow(1).shrink(1).define { col in
+                    col.addItem(self.searchTitleLabel).height(24)
+                    col.addItem(self.searchDescLabel).height(20)
+                    col.addItem(self.downloadButton)
+                }
+            }
+        }
+        
 //        self.searchImageView.snp.makeConstraints { make in
 //            make.top.leading.bottom.equalToSuperview().inset(20)
 //            make.size.equalTo(100)
