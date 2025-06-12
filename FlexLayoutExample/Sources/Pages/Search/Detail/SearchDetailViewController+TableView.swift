@@ -12,14 +12,14 @@ extension SearchDetailViewController {
     // MARK: - BindTableView
     func bindTableView(reactor: Reactor) {
         // MARK: - Action
-        self.tableView.rx.itemSelected(dataSource: self.dataSource)
+        self.adapter.tableView.rx.itemSelected(dataSource: self.adapter.dataSource)
             .observe(on: MainScheduler.asyncInstance)
             .withUnretained(self)
             .subscribe(onNext: {
                 switch $0.1 {
                 case let .descItem(cellReactor):
                     guard cellReactor.currentState.numberOfLines > 0 else { return }
-                    let tableView = $0.0.tableView
+                    let tableView = $0.0.adapter.tableView
                     UIView.performWithoutAnimation {
                         tableView.beginUpdates()
                         cellReactor.action.onNext(.updateNumberOfLines)
@@ -33,7 +33,7 @@ extension SearchDetailViewController {
         
         // MARK: - State
         reactor.state.map { $0.section }
-            .bind(to: self.tableView.rx.items(dataSource: self.dataSource))
+            .bind(to: self.adapter.tableView.rx.items(dataSource: self.adapter.dataSource))
             .disposed(by: self.disposeBag)
     }
 }
