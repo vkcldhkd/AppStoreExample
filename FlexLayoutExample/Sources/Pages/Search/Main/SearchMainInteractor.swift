@@ -20,7 +20,7 @@ protocol SearchMainPresentable: Presentable {
 
 protocol SearchMainListener: AnyObject {
     // TODO: Declare methods the interactor can invoke to communicate with other RIBs.
-    func attachSearchDetail(_ item: SearchResult)
+//    func attachSearchDetail(_ item: SearchResult)
 }
 
 final class SearchMainInteractor: PresentableInteractor<SearchMainPresentable>, SearchMainInteractable {

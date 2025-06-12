@@ -76,6 +76,11 @@ final class SearchDetailViewController: BaseViewController {
         self.setupUI()
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        self.tableView.pin.all(view.safeAreaInsets)
+    }
+    
     override func setupConstraints() {
 //        self.tableView.snp.makeConstraints { make in
 //            make.edges.equalTo(self.view.safeAreaLayoutGuide.snp.edges)

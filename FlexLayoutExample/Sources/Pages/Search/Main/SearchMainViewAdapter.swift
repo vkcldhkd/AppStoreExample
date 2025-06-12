@@ -58,13 +58,3 @@ final class SearchMainViewAdapter {
         self.dataSource = type(of: self).dataSourceFactory()
     }
 }
-
-extension SearchMainViewAdapter {
-    func bindActions() {
-        tableView.rx.itemSelected(dataSource: dataSource)
-            .throttle(.milliseconds(600), scheduler: MainScheduler.asyncInstance)
-            .observe(on: MainScheduler.asyncInstance)
-            .subscribe(onNext: { [weak self] in self?.onItemSelected?($0) })
-            .disposed(by: self.disposeBag)
-    }
-}

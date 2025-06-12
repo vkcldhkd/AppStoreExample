@@ -44,9 +44,3 @@ final class RootInteractor: PresentableInteractor<RootPresentable>, RootInteract
         // TODO: Pause any business logic.
     }
 }
-
-extension RootInteractor {
-    func attachSearchDetail(_ item: SearchResult) {
-        print(item)
-    }
-}
