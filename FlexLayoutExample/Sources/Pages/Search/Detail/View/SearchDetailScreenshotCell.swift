@@ -8,6 +8,7 @@
 import UIKit
 import ReactorKit
 import ReusableKit
+import FlexLayout
 
 final class SearchDetailScreenshotCell: BaseTableViewCell {
     // MARK: - Constants
@@ -39,25 +40,19 @@ final class SearchDetailScreenshotCell: BaseTableViewCell {
     
     override func layoutSubviews() {
         super.layoutSubviews()
-
-        // contentView.frame.width 기준으로 높이 계산
-        let width = contentView.bounds.width - 40 // marginHorizontal(20 + 20)
-        let height = width * 1.2
-        collectionView.flex.height(height)
-
-        contentView.flex.layout()
+        self.layout()
     }
-//
-//    
-//    fileprivate func layout() {
-//        self.contentView.flex.layout(mode: .adjustHeight)
-//    }
-//    
-//    override func sizeThatFits(_ size: CGSize) -> CGSize {
-//        contentView.pin.width(size.width)
-//        self.layout()
-//        return contentView.frame.size
-//    }
+
+    
+    fileprivate func layout() {
+        self.contentView.flex.layout(mode: .adjustHeight)
+    }
+    
+    override func sizeThatFits(_ size: CGSize) -> CGSize {
+        contentView.pin.width(size.width)
+        self.layout()
+        return contentView.frame.size
+    }
 }
 
 
@@ -80,6 +75,7 @@ private extension SearchDetailScreenshotCell {
             flex.addItem(collectionView)
                 .marginHorizontal(20)
                 .marginVertical(12)
+                .height(UIScreen.main.bounds.width * 1.2)
         }
     }
 }

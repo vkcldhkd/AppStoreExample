@@ -26,6 +26,7 @@ final class SearchDeatilDescCell: BaseTableViewCell {
     let moreBackgroundGradientView: GradientView = GradientView(endColor: UIColor.white).then {
         $0.isUserInteractionEnabled = false
     }
+    let moreWrapperView = UIView()
     
     // MARK: Initializing
     override init(
@@ -36,19 +37,55 @@ final class SearchDeatilDescCell: BaseTableViewCell {
         self.setupUI()
         self.setupConstraints()
     }
+    
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        self.layout()
+    }
+    
+    fileprivate func layout() {
+        self.contentView.flex.layout(mode: .adjustHeight)
+    }
+    
+    override func sizeThatFits(_ size: CGSize) -> CGSize {
+        contentView.pin.width(size.width)
+        self.layout()
+        return contentView.frame.size
+    }
+    
 }
 
 
 private extension SearchDeatilDescCell {
     // MARK: - setupUI
     func setupUI() {
-        self.contentView.addSubview(self.descLabel)
-        self.contentView.addSubview(self.moreBackgroundGradientView)
-        self.contentView.addSubview(self.moreLabel)
+//        self.contentView.addSubview(self.descLabel)
+//        self.contentView.addSubview(self.moreBackgroundGradientView)
+//        self.contentView.addSubview(self.moreLabel)
+        
+        moreWrapperView.addSubview(moreBackgroundGradientView)
+        moreWrapperView.addSubview(moreLabel)
     }
     
     // MARK: - setupConstraints
     func setupConstraints() {
+        
+        self.contentView.flex.padding(20).define { flex in
+            flex.addItem(descLabel)
+                .marginBottom(8)
+
+            flex.addItem(moreWrapperView)
+                .alignSelf(.end)
+                .position(.relative)
+                .define { wrapper in
+                    wrapper.addItem(moreBackgroundGradientView)
+                        .position(.absolute)
+                        .left(-8).right(0).top(0).bottom(0)
+
+                    wrapper.addItem(moreLabel)
+                }
+        }
+        
 //        self.descLabel.snp.makeConstraints { make in
 //            make.edges.equalToSuperview().inset(20)
 //        }
