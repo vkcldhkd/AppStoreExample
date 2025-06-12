@@ -30,6 +30,7 @@ extension SearchMainViewController {
 //                        type: .push,
 //                        context: [.model: cellReactor.currentState.model]
 //                    )
+                    self?.listener?.didTapDetailItem(cellReactor.currentState.model)
                     print("cellReactor: \(cellReactor.currentState.model)")
                 case let .historyItem(cellReactor):
                     guard !cellReactor.currentState.isEmpty else { return }

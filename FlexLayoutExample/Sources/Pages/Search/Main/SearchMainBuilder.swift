@@ -7,7 +7,7 @@
 
 import RIBs
 
-protocol SearchMainDependency: Dependency {
+protocol SearchMainDependency: Dependency, SearchDetailDependency {
     // TODO: Declare the set of dependencies required by this RIB, but cannot be
     // created by this RIB.
 }
@@ -32,8 +32,14 @@ final class SearchMainBuilder: Builder<SearchMainDependency>, SearchMainBuildabl
     func build(withListener listener: SearchMainListener) -> SearchMainRouting {
         let component = SearchMainComponent(dependency: dependency)
         let viewController = SearchMainViewController()
+        
+        let detailBuilder = SearchDetailBuilder(dependency: component.dependency)
         let interactor = SearchMainInteractor(presenter: viewController)
         interactor.listener = listener
-        return SearchMainRouter(interactor: interactor, viewController: viewController)
+        return SearchMainRouter(
+            interactor: interactor,
+            viewController: viewController,
+            searchDetailBuilder: detailBuilder
+        )
     }
 }

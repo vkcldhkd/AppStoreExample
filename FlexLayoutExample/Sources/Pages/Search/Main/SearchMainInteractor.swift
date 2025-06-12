@@ -10,6 +10,7 @@ import RxSwift
 
 protocol SearchMainRouting: ViewableRouting {
     // TODO: Declare methods the interactor can invoke to manage sub-tree via the router.
+    func routeToSearchDetail(item: SearchResult?)
 }
 
 protocol SearchMainPresentable: Presentable {
@@ -19,10 +20,10 @@ protocol SearchMainPresentable: Presentable {
 
 protocol SearchMainListener: AnyObject {
     // TODO: Declare methods the interactor can invoke to communicate with other RIBs.
+    func attachSearchDetail(_ item: SearchResult)
 }
 
-final class SearchMainInteractor: PresentableInteractor<SearchMainPresentable>, SearchMainInteractable, SearchMainPresentableListener {
-
+final class SearchMainInteractor: PresentableInteractor<SearchMainPresentable>, SearchMainInteractable {
     weak var router: SearchMainRouting?
     weak var listener: SearchMainListener?
 
@@ -41,5 +42,11 @@ final class SearchMainInteractor: PresentableInteractor<SearchMainPresentable>, 
     override func willResignActive() {
         super.willResignActive()
         // TODO: Pause any business logic.
+    }
+}
+
+extension SearchMainInteractor: SearchMainPresentableListener {
+    func didTapDetailItem(_ item: SearchResult?) {
+        self.router?.routeToSearchDetail(item: item)
     }
 }

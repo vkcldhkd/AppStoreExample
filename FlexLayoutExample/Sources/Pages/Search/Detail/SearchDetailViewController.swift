@@ -11,6 +11,9 @@ import RxSwift
 import ReusableKit
 import RxDataSources
 
+protocol SearchDetailPresentableListener: AnyObject {
+}
+
 
 final class SearchDetailViewController: BaseViewController {
     // MARK: - Constants
@@ -22,6 +25,7 @@ final class SearchDetailViewController: BaseViewController {
     }
     
     // MARK: - Properties
+    weak var listener: SearchDetailPresentableListener?
     let dataSource: RxTableViewSectionedReloadDataSource<SearchDetailSection>
     private static func dataSourceFactory() -> RxTableViewSectionedReloadDataSource<SearchDetailSection> {
         return .init(
@@ -94,4 +98,8 @@ extension SearchDetailViewController: ReactorKit.View {
         // MARK: - State
         self.bindTableView(reactor: reactor)
     }
+}
+
+extension SearchDetailViewController: SearchDetailPresentable, SearchDetailViewControllable {
+    
 }

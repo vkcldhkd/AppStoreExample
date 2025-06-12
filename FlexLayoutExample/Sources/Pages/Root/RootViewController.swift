@@ -35,9 +35,9 @@ final class RootViewController: BaseViewController, RootPresentable, RootViewCon
 extension RootViewController {
     func replaceScreen(viewController: ViewControllable) {
         let newVC = viewController.uiviewController
-        
-        self.addChild(newVC)
-        self.view.addSubview(newVC.view)
+        let naviVC = BaseNavigationController(rootViewController: newVC)
+        self.addChild(naviVC)
+        self.view.addSubview(naviVC.view)
         
         // 2. PinLayout + Flex로 레이아웃 설정
         newVC.view.pin.all()

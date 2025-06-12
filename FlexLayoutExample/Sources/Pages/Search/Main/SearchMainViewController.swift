@@ -14,7 +14,7 @@ import PinLayout
 
 
 protocol SearchMainPresentableListener: AnyObject {
-    
+    func didTapDetailItem(_ item: SearchResult?)
 }
 
 final class SearchMainViewController: BaseViewController {
@@ -80,5 +80,7 @@ extension SearchMainViewController: ReactorKit.View {
 }
 
 extension SearchMainViewController: SearchMainPresentable, SearchMainViewControllable {
-    
+    func didTapDetailItem(_ item: SearchResult?) {
+        self.listener?.didTapDetailItem(item)
+    }
 }

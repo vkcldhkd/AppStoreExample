@@ -23,7 +23,6 @@ protocol RootListener: AnyObject {
 }
 
 final class RootInteractor: PresentableInteractor<RootPresentable>, RootInteractable, RootPresentableListener {
-
     weak var router: RootRouting?
     weak var listener: RootListener?
 
@@ -43,5 +42,11 @@ final class RootInteractor: PresentableInteractor<RootPresentable>, RootInteract
     override func willResignActive() {
         super.willResignActive()
         // TODO: Pause any business logic.
+    }
+}
+
+extension RootInteractor {
+    func attachSearchDetail(_ item: SearchResult) {
+        print(item)
     }
 }
