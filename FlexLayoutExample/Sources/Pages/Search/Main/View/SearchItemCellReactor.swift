@@ -9,7 +9,10 @@ import ReactorKit
 import RxSwift
 
 final class SearchItemCellReactor: Reactor {
-    typealias Action = NoAction
+    enum Action {
+        case download
+    }
+    
     struct State {
         var model: SearchResult
         var screenshotCellReactor: [SearchScreenshotCellReactor]
@@ -30,6 +33,14 @@ final class SearchItemCellReactor: Reactor {
             )
         )
     }
+    
+    func mutate(action: Action) -> Observable<Mutation> {
+        switch action {
+        case .download:
+            let downloadMutation = self.createDownloadMutation()
+            return .concat([downloadMutation])
+        }
+    }
 }
 
 
@@ -40,12 +51,22 @@ private extension SearchItemCellReactor {
     ) -> [SearchScreenshotCellReactor] {
         
         var resultScreenshotUrls: [String] {
-            guard var screenshotUrls = screenshotUrls else { return [] }
+            guard let screenshotUrls = screenshotUrls else { return [] }
             guard let screenshotPrefixCount = screenshotPrefixCount else { return screenshotUrls }
             return Array(screenshotUrls.prefix(screenshotPrefixCount))
         }
         
         return resultScreenshotUrls
             .map { SearchScreenshotCellReactor(url: $0) }
+    }
+}
+
+private extension SearchItemCellReactor {
+    func createDownloadMutation() -> Observable<Mutation> {
+        return BaseAlertController.present(
+            title: "내 마음속에",
+            message: "저장!",
+            actions: [.init(title: "확인", style: .default)]
+        ).flatMap { _ in Observable.empty() }
     }
 }
