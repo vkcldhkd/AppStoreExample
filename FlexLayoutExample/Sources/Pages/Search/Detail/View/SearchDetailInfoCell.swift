@@ -16,12 +16,6 @@ final class SearchDetailInfoCell: BaseTableViewCell {
     let searchImageView: UIImageView = UIImageView().then {
         $0.cornerRadius = 8
     }
-//    private lazy var infoStackView: UIStackView = UIStackView().then {
-//        $0.axis = .vertical
-//        $0.addArrangedSubview(self.searchTitleLabel)
-//        $0.addArrangedSubview(self.searchDescLabel)
-//    }
-    
     let searchTitleLabel: UILabel = UILabel().then {
         $0.font = UIFont.systemFont(ofSize: 20)
     }
@@ -67,9 +61,6 @@ final class SearchDetailInfoCell: BaseTableViewCell {
 private extension SearchDetailInfoCell {
     // MARK: - setupUI
     func setupUI() {
-//        self.contentView.addSubview(self.searchImageView)
-//        self.contentView.addSubview(self.infoStackView)
-//        self.contentView.addSubview(self.downloadButton)
     }
     
     // MARK: - setupConstraints
@@ -85,30 +76,6 @@ private extension SearchDetailInfoCell {
                 }
             }
         }
-        
-//        self.searchImageView.snp.makeConstraints { make in
-//            make.top.leading.bottom.equalToSuperview().inset(20)
-//            make.size.equalTo(100)
-//        }
-//        
-//        self.infoStackView.snp.makeConstraints { make in
-//            make.top.equalTo(self.searchImageView.snp.top)
-//            make.leading.equalTo(self.searchImageView.snp.trailing).offset(8)
-//            make.trailing.equalToSuperview().inset(20)
-//        }
-//        
-//        self.searchTitleLabel.snp.makeConstraints { make in
-//            make.height.equalTo(24)
-//        }
-//        
-//        self.searchDescLabel.snp.makeConstraints { make in
-//            make.height.equalTo(20)
-//        }
-//        
-//        self.downloadButton.snp.makeConstraints { make in
-//            make.leading.equalTo(self.searchImageView.snp.trailing).offset(8)
-//            make.bottom.equalTo(self.searchImageView.snp.bottom)
-//        }
     }
 }
 

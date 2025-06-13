@@ -64,14 +64,7 @@ private extension SearchDetailScreenshotCell {
     
     // MARK: - setupConstraints
     func setupConstraints() {
-//        self.collectionView.snp.makeConstraints { make in
-//            make.top.bottom.equalToSuperview().inset(12)
-//            make.leading.trailing.equalToSuperview().inset(20)
-//            let width: CGFloat = self.contentView.frame.width
-//            make.height.equalTo(width * 1.2)
-//        }
-
-        contentView.flex.define { flex in
+        self.contentView.flex.define { flex in
             flex.addItem(collectionView)
                 .marginHorizontal(20)
                 .marginVertical(12)

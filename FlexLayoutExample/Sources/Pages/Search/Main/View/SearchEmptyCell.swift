@@ -59,7 +59,9 @@ private extension SearchEmptyCell {
     
     func setupConstraints() {
         
-        self.contentView.flex.direction(.column).define { flex in
+        self.contentView.flex.direction(.column)
+            .margin(20)
+            .define { flex in
             flex.addItem(descLabel)
                 .height(29)
                 .marginBottom(8)
@@ -68,18 +70,5 @@ private extension SearchEmptyCell {
             flex.addItem(keywordLabel)
                 .alignSelf(.stretch)
         }
-//        self.containerView.snp.makeConstraints { make in
-//            make.edges.equalToSuperview().inset(20)
-//        }
-//        
-//        self.descLabel.snp.makeConstraints { make in
-//            make.top.leading.trailing.equalToSuperview()
-//            make.height.equalTo(29)
-//        }
-//        
-//        self.keywordLabel.snp.makeConstraints { make in
-//            make.top.equalTo(self.descLabel.snp.bottom).offset(8)
-//            make.leading.trailing.bottom.equalToSuperview()
-//        }
     }
 }

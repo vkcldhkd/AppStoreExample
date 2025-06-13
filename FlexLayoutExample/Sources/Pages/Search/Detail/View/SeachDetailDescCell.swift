@@ -26,7 +26,10 @@ final class SearchDeatilDescCell: BaseTableViewCell {
     let moreBackgroundGradientView: GradientView = GradientView(endColor: UIColor.white).then {
         $0.isUserInteractionEnabled = false
     }
-    let moreWrapperView = UIView()
+    lazy var moreWrapperView = UIView().then {
+        $0.addSubview(self.moreBackgroundGradientView)
+        $0.addSubview(self.moreLabel)
+    }
     
     // MARK: Initializing
     override init(
@@ -59,12 +62,6 @@ final class SearchDeatilDescCell: BaseTableViewCell {
 private extension SearchDeatilDescCell {
     // MARK: - setupUI
     func setupUI() {
-//        self.contentView.addSubview(self.descLabel)
-//        self.contentView.addSubview(self.moreBackgroundGradientView)
-//        self.contentView.addSubview(self.moreLabel)
-        
-        moreWrapperView.addSubview(moreBackgroundGradientView)
-        moreWrapperView.addSubview(moreLabel)
     }
     
     // MARK: - setupConstraints
@@ -87,22 +84,6 @@ private extension SearchDeatilDescCell {
                     }
             }
         }
-        
-//        self.descLabel.snp.makeConstraints { make in
-//            make.edges.equalToSuperview().inset(20)
-//        }
-//        
-//        self.moreLabel.snp.makeConstraints { make in
-//            make.trailing.equalToSuperview().inset(20)
-//            make.bottom.equalTo(self.descLabel.snp.bottom)
-//        }
-//        
-//        self.moreBackgroundGradientView.snp.makeConstraints { make in
-//            make.leading.equalTo(self.moreLabel.snp.leading).inset(-8)
-//            make.trailing.equalTo(self.moreLabel.snp.trailing)
-//            make.centerY.equalTo(self.moreLabel.snp.centerY)
-//            make.height.equalTo(self.moreLabel.snp.height)
-//        }
     }
 }
 
