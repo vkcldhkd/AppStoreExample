@@ -12,11 +12,11 @@ extension SearchItemCell {
     // MARK: - BindInfo
     func bindInfo(reactor: Reactor) {
         // MARK: - Action
-//        self.downloadButton.rx.tap
-//            .throttle(.milliseconds(600), scheduler: MainScheduler.asyncInstance)
-//            .observe(on: MainScheduler.asyncInstance)
-//            .subscribe(onNext: { URLNavigatorHelper.shared.alert(title: "내 마음속에", message: "저장!") })
-//            .disposed(by: self.disposeBag)
+        self.downloadButton.rx.tap
+            .throttle(.milliseconds(600), scheduler: MainScheduler.asyncInstance)
+            .map { Reactor.Action.download }
+            .bind(to: reactor.action)
+            .disposed(by: self.disposeBag)
         
         // MARK: - State
         reactor.state.map { $0.model.trackName }
